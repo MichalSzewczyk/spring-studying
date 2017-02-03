@@ -1,4 +1,4 @@
 .idea
 ioc-controller/target
 *.iml
-
+*.log
