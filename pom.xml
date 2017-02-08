@@ -13,6 +13,7 @@
         <module>database</module>
         <module>transactions</module>
         <module>security</module>
+        <module>annotations</module>
     </modules>
     <dependencies>
         <dependency>

@@ -1,6 +1,7 @@
 package transactions;
 
 import dao.CarDAO;
+import management.DatabaseManagement;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class TransactionalAnnotationSample {
     private CarDAO carDAO;
+    private DatabaseManagement databaseManagement = new DatabaseManagement();
 
     public void setCarDAO(CarDAO carDAO) {
         this.carDAO = carDAO;
     }
-
+    void prepareDatabase(){
+        databaseManagement.setupDerbyDatabase();
+    }
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     void sampleTransaction() throws Exception {
         System.out.println("Transaction results:");

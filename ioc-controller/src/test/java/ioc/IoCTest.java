@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
  * Created by Michał Szewczyk on 2017-02-02.
  *
  */
-public class IoCTests {
+public class IoCTest {
     private ApplicationContext ctx;
 
     @Before
