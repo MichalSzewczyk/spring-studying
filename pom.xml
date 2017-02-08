@@ -12,6 +12,7 @@
         <module>ioc-controller</module>
         <module>database</module>
         <module>transactions</module>
+        <module>security</module>
     </modules>
     <dependencies>
         <dependency>

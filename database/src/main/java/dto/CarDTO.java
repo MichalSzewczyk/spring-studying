@@ -37,7 +37,7 @@ public class CarDTO {
     public String toString() {
         return "CarDTO{" +
                 "id=" + id +
-                ", model='" + model + '\'' +
+                ", components.model='" + model + '\'' +
                 ", price=" + price +
                 '}';
     }
