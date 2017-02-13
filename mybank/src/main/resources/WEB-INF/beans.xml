@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="simpleController" class="app.controllers.SimpleController">
+        <property name="simpleService" ref="simpleService"/>
+    </bean>
+    <bean id="simpleService" class="app.services.SimpleService">
+        <property name="simpleDAO" ref="simpleDAO"/>
+    </bean>
+    <bean id="simpleDAO" class="app.dao.SimpleDAO"/>
+</beans>

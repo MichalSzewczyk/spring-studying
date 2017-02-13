@@ -14,6 +14,7 @@
         <module>transactions</module>
         <module>security</module>
         <module>annotations</module>
+        <module>mybank</module>
     </modules>
     <dependencies>
         <dependency>
