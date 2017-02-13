@@ -1,6 +1,6 @@
 package template;
 
-import dao.CarDAO;
+import impl.dao.CarDAO;
 import dto.CarDTO;
 import mappers.CarMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,6 +1,6 @@
 package transactions;
 
-import dao.CarDAO;
+import impl.dao.CarDAO;
 import management.DatabaseManagement;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

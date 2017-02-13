@@ -15,6 +15,7 @@
         <module>security</module>
         <module>annotations</module>
         <module>mybank</module>
+        <module>loosely-coupled</module>
     </modules>
     <dependencies>
         <dependency>
