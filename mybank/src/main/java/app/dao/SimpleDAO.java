@@ -6,6 +6,7 @@ package app.dao;
  */
 public class SimpleDAO {
     public void save(Object... args){
+
         System.out.println("Saved using SimpleDAO class.");
     }
 }
