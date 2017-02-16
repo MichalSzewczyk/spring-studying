@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="service.SampleService" id="service">
+        <property name="dao" ref="derbyDao"/>
+    </bean>
+    <bean class="dao.SampleFactory" id="derbyDao" factory-method="getInstance">
+        <constructor-arg index="0" value="DERBY"/>
+    </bean>
+    <bean class="dao.SampleFactory" id="hibernateDao" factory-method="getInstance">
+        <constructor-arg index="0" value="HIBERNATE"/>
+    </bean>
+    <bean class="msg.MessagingClass" id="messagingClass">
+        <property name="host" value="sample host name"/>
+        <property name="password" value="sample password"/>
+        <property name="username" value = "sample username"/>
+        <property name="id" value="7"/>
+    </bean>
+    <!--other config-->
+    <bean id="additionalInfo" class="other.DaoAdditionalInfo">
+        <constructor-arg index="0" value="sample additional info"/>
+    </bean>
+    <bean id="factoryInstance" class="other.DaoFactory"/>
+    <bean id="hibernateOtherDao" class="other.HibernateDao" factory-bean="factoryInstance" factory-method="getDao">
+        <constructor-arg name="daoType" value="hibernate"/>
+        <property name="daoAdditionalInfo" ref="additionalInfo"/>
+    </bean>
+    <!--constructor based dependency injection-->
+    <bean id="wheelFR" class="constructor.Wheel">
+        <constructor-arg value="front right"/>
+    </bean>
+    <bean id="wheelFL" class="constructor.Wheel">
+        <constructor-arg value="front left"/>
+    </bean>
+    <bean id="wheelRR" class="constructor.Wheel">
+        <constructor-arg value="rear right"/>
+    </bean>
+    <bean id="wheelRL" class="constructor.Wheel">
+        <constructor-arg value="rear left"/>
+    </bean>
+    <bean id="engine" class="constructor.Engine">
+        <constructor-arg value="300" index="0"/>
+        <constructor-arg value="bmw" index="1"/>
+    </bean>
+    <bean id="passenger1" class="constructor.Passenger">
+        <constructor-arg index="0" value="Foo"/>
+        <constructor-arg index="1" value="Bar"/>
+    </bean>
+    <bean id="passenger2" class="constructor.Passenger">
+        <constructor-arg index="0" value="Fizz"/>
+        <constructor-arg index="1" value="Buzz"/>
+    </bean>
+    <bean id="wheels" class="constructor.Wheels">
+        <constructor-arg index="0" ref="wheelFL"/>
+        <constructor-arg index="1" ref="wheelFR"/>
+        <constructor-arg index="2" ref="wheelRL"/>
+        <constructor-arg index="3" ref="wheelRR"/>
+    </bean>
+    <bean id="car" class="constructor.Car">
+        <constructor-arg index="0" ref="engine"/>
+        <constructor-arg index="1" ref="wheels"/>
+        <constructor-arg>
+            <list>
+                <bean id="asd" parent="passenger1"/>
+                <bean id="asd" parent="passenger2"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <!--combining configuration via setter and constructor-->
+    <bean class="combining.EmailMessageSender" id="emailMessageSender"/>
+    <bean class="combining.JmsMessageSender" id="jmsMessageSender"/>
+    <bean class="combining.BankingService" id="bankingService">
+        <constructor-arg ref="emailMessageSender"/>
+        <property name="second" ref="jmsMessageSender"/>
+    </bean>
+
+</beans>
