@@ -147,9 +147,16 @@
     <!--Creating bean template with factory method where argument matching is based on names-->
     <bean id="serviceFactory" class="args.debug.ServiceFactory"/>
     <bean id="firstServiceTemplate" abstract="true" factory-bean="serviceFactory" factory-method="getService">
-        <constructor-arg name="type" value="first"/>
+        <constructor-arg name="type" ref="base"/>
     </bean>
     <bean id="firstServiceWorks" parent="firstServiceTemplate" class="args.debug.FirstService" factory-bean="serviceFactory" factory-method="getService">
-        <constructor-arg name="arg" value="works!"/>
+        <constructor-arg name="arg" ref="derived"/>
     </bean>
+    <bean id="base" class="args.debug.Base">
+        <constructor-arg value="first"/>
+    </bean>
+    <bean id="derived" class="args.debug.Derived">
+        <constructor-arg value="works!"/>
+    </bean>
+
 </beans>
