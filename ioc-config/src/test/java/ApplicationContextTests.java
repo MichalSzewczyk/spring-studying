@@ -1,6 +1,9 @@
+import args.different.SampleController;
+import args.matching.MainController;
 import combining.BankingService;
-import combining.EmailMessageSender;
 import constructor.Car;
+import factory.Controller;
+import inheritance.nonconcrete.BiggerBankController;
 import msg.MessagingClass;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,32 +17,76 @@ import service.SampleService;
  */
 public class ApplicationContextTests {
     @Test
-    public void testFactoryMethod(){
+    public void matchingArgumentsBasedOnRelatedTypes(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        MainController sampleController = (MainController) context.getBean("mController");
+    }
+    @Test
+    public void automaticArgumentsDetection() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        args.detection.SampleController sampleController = (args.detection.SampleController) context.getBean("sampleController");
+        Assert.assertTrue(sampleController.getFirstService() != null && sampleController.getSecondService() != null);
+    }
+
+    @Test
+    public void testDifferentArguments() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        SampleController otherController = (SampleController) context.getBean("sController");
+        Assert.assertTrue(otherController.isProperlyCreated(10));
+    }
+
+    @Test
+    public void testFactoryMethodInheritance() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        Controller otherController = (Controller) context.getBean("otherController");
+        Assert.assertEquals("OtherController", otherController.method());
+    }
+
+    @Test
+    public void beanNonAbstractParentInheritance() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        inheritance.concrete.SampleService sampleService = (inheritance.concrete.SampleService) context.getBean("sampleService");
+        Assert.assertEquals(sampleService.method(), "works!");
+    }
+
+    @Test
+    public void beanInheritance() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BiggerBankController biggerBankController = (BiggerBankController) context.getBean("biggerBankController");
+        Assert.assertEquals(String.valueOf(biggerBankController), "works!");
+    }
+
+    @Test
+    public void testFactoryMethod() {
         ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         SampleService service = (SampleService) context.getBean("service");
         Assert.assertTrue(service.work().startsWith("works in"));
         System.out.println(service.work());
     }
+
     @Test
-    public void testConfiguringObject(){
+    public void testConfiguringObject() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         MessagingClass msg = (MessagingClass) context.getBean("messagingClass");
-        Assert.assertEquals(msg.getId(),7);
+        Assert.assertEquals(msg.getId(), 7);
     }
+
     @Test
-    public void testCreatingAdvancedBean(){
+    public void testCreatingAdvancedBean() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         Dao hibernateDao = (Dao) context.getBean("hibernateOtherDao");
         System.out.println(hibernateDao.method());
     }
+
     @Test
-    public void testConstructorBasedConfig(){
+    public void testConstructorBasedConfig() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         Car car = (Car) context.getBean("car");
         System.out.println(car);
     }
+
     @Test
-    public void testMixedConfig(){
+    public void testMixedConfig() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         BankingService service = (BankingService) context.getBean("bankingService");
         System.out.println(service);

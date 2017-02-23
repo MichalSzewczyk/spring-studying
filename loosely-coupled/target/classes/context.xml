@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--Approach based on interface programming.-->
+    <bean id="hibernateDAO" class="impl.dao.CarHibernateDAO"/>
+    <bean id="iBatisDAO" class="impl.dao.CarIBatisDAO"/>
+    <bean id="jdbcDAO" class="impl.dao.CarJDBCDAO"/>
+    <bean id="basicService" class="impl.service.CarBasicService">
+        <property name="carDAO" ref="hibernateDAO"/>
+    </bean>
+    <bean id="basicController" class="impl.controller.CarBasicController">
+        <property name="basicService" ref="basicService"/>
+    </bean>
+</beans>

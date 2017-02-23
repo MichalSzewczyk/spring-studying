@@ -17,6 +17,7 @@
         <module>mybank</module>
         <module>loosely-coupled</module>
         <module>ioc-config</module>
+        <module>bean-scopes</module>
     </modules>
     <dependencies>
         <dependency>

@@ -75,4 +75,63 @@
         <property name="second" ref="jmsMessageSender"/>
     </bean>
 
+    <!--configuration using abstract bean in order to avoid code repetition-->
+    <bean id="bankService" class="inheritance.nonconcrete.BankService"/>
+    <bean id="abstractController" abstract="true">
+        <constructor-arg type="inheritance.nonconcrete.BankService" ref="bankService"/>
+    </bean>
+    <bean id="biggerBankController" parent="abstractController" class="inheritance.nonconcrete.BiggerBankController">
+        <constructor-arg name="name" value="works!"/>
+    </bean>
+    <bean id="smallerBankController" parent="abstractController" class="inheritance.nonconcrete.SmallerBankService"/>
+
+    <!--non abstract parent bean definition-->
+    <bean id="emailMessaging" class="inheritance.concrete.EmailMessaging"/>
+    <bean id="jmsMessaging" class="inheritance.concrete.JmsMessaging"/>
+
+    <bean id="templateService" class="inheritance.concrete.TemplateService">
+        <constructor-arg name="services">
+            <list>
+                <ref bean="jmsMessaging"/>
+                <ref bean="emailMessaging"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="sampleService" class="inheritance.concrete.SampleService" parent="templateService">
+        <constructor-arg name="name" value="sample name"/>
+    </bean>
+    <!--factory method inheritance -->
+    <bean id="controllerFactory" class="factory.ControllerFactory"/>
+    <!--<bean id="parentController" abstract="true" factory-bean="controllerFactory" factory-method="getController"/>-->
+    <bean id="parentController" class="factory.ControllerFactory" factory-bean="controllerFactory" factory-method="getController">
+        <constructor-arg index="0" value="OtherController"/>
+    </bean>
+    <bean id="otherController" parent="parentController" factory-bean="controllerFactory" factory-method="getController">
+        <constructor-arg index="0" value="OtherController"/>
+    </bean>
+    <!--different arg type passing to constructor-->
+    <bean id="sService" class="args.different.SampleService"/>
+    <bean id="sController" class="args.different.SampleController">
+        <!--passing components to constructor via ref attribute-->
+        <constructor-arg name="sampleService" ref="sService"/>
+        <!--passing primitive type values to constructor via value attribute-->
+        <constructor-arg name="intValue" value="10"/>
+        <constructor-arg name="stringValue" value="foo"/>
+    </bean>
+    <!--constructor argument detection based on types-->
+    <bean id="firstService" class="args.detection.FirstService"/>
+    <bean id="secondService" class="args.detection.SecondService"/>
+    <bean id="sampleController" class="args.detection.SampleController">
+        <constructor-arg ref="firstService"/>
+        <constructor-arg ref="secondService"/>
+    </bean>
+    <!--related constructor arguments-->
+    <bean id="fstService" class="args.matching.FirstService"/>
+    <bean id="sndService" class="args.matching.SecondService"/>
+    <bean id="mController" class="args.matching.MainController">
+        <constructor-arg ref="sndService"/>
+        <constructor-arg ref="fstService"/>
+    </bean>
+
+
 </beans>

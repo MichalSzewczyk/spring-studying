@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--MyBank Beans-->
+    <bean id="myController" class="ioc.mybank.fixed.FixedDepositController">
+        <constructor-arg index="0" ref="myService"/>
+    </bean>
+    <bean id="myService" class="ioc.mybank.fixed.FixedDepositService"/>
+    <!--Car Beans-->
+    <bean id="electricityService" class="ioc.multipleservices.fixed.ElectricityService"/>
+    <bean id="engineService" class="ioc.multipleservices.fixed.EngineService"/>
+    <bean id="fuelPompService" class="ioc.multipleservices.fixed.FuelPompService"/>
+    <bean id="oilPompService" class="ioc.multipleservices.fixed.OilPompService"/>
+    <bean id="safetyService" class="ioc.multipleservices.fixed.SafetyService"/>
+    <bean id="carController" class="ioc.multipleservices.fixed.CarController">
+        <constructor-arg index="0" ref="engineController"/>
+        <constructor-arg index="1" ref="electricityService"/>
+        <constructor-arg index="2" ref="safetyService"/>
+    </bean>
+    <bean id="engineController" class="ioc.multipleservices.fixed.EngineController">
+        <constructor-arg index="0" ref="fuelPompService"/>
+        <constructor-arg index="1" ref="oilPompService"/>
+        <constructor-arg index="2" ref="engineService"/>
+    </bean>
+</beans>
