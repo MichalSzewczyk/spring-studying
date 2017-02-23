@@ -1,3 +1,4 @@
+import args.debug.ServiceInterface;
 import args.different.SampleController;
 import args.matching.MainController;
 import args.name.NameBasedService;
@@ -17,6 +18,12 @@ import service.SampleService;
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
+    @Test
+    public void nameBasedBeanFactoryMethod(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ServiceInterface serviceInterface = (ServiceInterface) context.getBean("firstServiceWorks");
+        Assert.assertEquals("works!", serviceInterface.method());
+    }
     @Test
     public void nameBasedBeanConstructorConfigWithInheritance(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
