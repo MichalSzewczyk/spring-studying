@@ -1,5 +1,6 @@
 import args.different.SampleController;
 import args.matching.MainController;
+import args.name.NameBasedService;
 import combining.BankingService;
 import constructor.Car;
 import factory.Controller;
@@ -16,6 +17,15 @@ import service.SampleService;
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
+    @Test
+    public void nameBasedBeanConstructorConfig(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        NameBasedService nameBasedService = (NameBasedService) context.getBean("nameBasedService");
+        Assert.assertEquals("value1", nameBasedService.getArg1());
+        Assert.assertEquals("value2", nameBasedService.getArg2());
+        Assert.assertEquals("value3", nameBasedService.getArg3());
+    }
+
     @Test
     public void matchingArgumentsBasedOnRelatedTypes(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
