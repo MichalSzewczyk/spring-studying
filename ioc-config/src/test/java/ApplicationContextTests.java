@@ -18,6 +18,14 @@ import service.SampleService;
  */
 public class ApplicationContextTests {
     @Test
+    public void nameBasedBeanConstructorConfigWithInheritance(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        args.name.BankingService nameBasedService = (args.name.BankingService) context.getBean("otherBankingService");
+        Assert.assertEquals("value1", nameBasedService.getArg1());
+        Assert.assertEquals("value2", nameBasedService.getArg2());
+        Assert.assertEquals("value3", nameBasedService.getArg3());
+    }
+    @Test
     public void nameBasedBeanConstructorConfig(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         NameBasedService nameBasedService = (NameBasedService) context.getBean("nameBasedService");
