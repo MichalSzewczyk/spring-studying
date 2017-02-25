@@ -237,7 +237,16 @@
             </map>
         </constructor-arg>
     </bean>
-
-
+    <!--configuring map with nulls-->
+    <bean id="collectionWithNulls" class="nulls.SampleCollectionWithNulls">
+        <constructor-arg>
+            <map>
+                <entry>
+                    <key><null/></key>
+                    <null/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
 
 </beans>

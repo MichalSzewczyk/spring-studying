@@ -11,6 +11,7 @@ import idref.IdRefUsage;
 import inheritance.nonconcrete.BiggerBankController;
 import msg.MessagingClass;
 import nested.ClassWithNestedCollection;
+import nulls.SampleCollectionWithNulls;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +24,12 @@ import service.SampleService;
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
+    @Test
+    public void testCollectionWithNulls(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        SampleCollectionWithNulls idRefUsage = (SampleCollectionWithNulls) context.getBean("collectionWithNulls");
+        Assert.assertNull(idRefUsage.getMap().get(null));
+    }
     @Test
     public void testComponentUsingIdRef(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
