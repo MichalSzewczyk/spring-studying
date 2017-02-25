@@ -4,20 +4,49 @@ import args.matching.MainController;
 import args.name.NameBasedService;
 import combining.BankingService;
 import constructor.Car;
+import containers.ClassWithContainers;
+import editors.PropertyEditorSampleClass;
 import factory.Controller;
 import inheritance.nonconcrete.BiggerBankController;
 import msg.MessagingClass;
+import nested.ClassWithNestedCollection;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import other.Dao;
+import ref.CollectionWithComponents;
 import service.SampleService;
 
 /**
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
+
+    @Test
+    public void testComponentFromList(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        CollectionWithComponents propertyEditorSampleClass = (CollectionWithComponents) context.getBean("collectionWithComponents");
+        Assert.assertEquals("foo", propertyEditorSampleClass.getList().get(0).getValue());
+    }
+    @Test
+    public void testNestedCollections(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ClassWithNestedCollection propertyEditorSampleClass = (ClassWithNestedCollection) context.getBean("classWithNestedCollection");
+        Assert.assertEquals("foo", propertyEditorSampleClass.getList().get(0).get(0).toArray()[0]);
+    }
+    @Test
+    public void testBeanWithCollections(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ClassWithContainers propertyEditorSampleClass = (ClassWithContainers) context.getBean("beanWithContainers");
+        Assert.assertEquals((Integer)2, propertyEditorSampleClass.getMapType().get(1));
+    }
+    @Test
+    public void testPropertyEditor(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        PropertyEditorSampleClass propertyEditorSampleClass = (PropertyEditorSampleClass) context.getBean("propertyEditorUsageExample");
+        Assert.assertEquals("test", propertyEditorSampleClass.getSample().getValue());
+    }
     @Test
     public void nameBasedBeanFactoryMethod(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");

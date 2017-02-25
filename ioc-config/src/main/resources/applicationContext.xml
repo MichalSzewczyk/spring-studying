@@ -158,5 +158,69 @@
     <bean id="derived" class="args.debug.Derived">
         <constructor-arg value="works!"/>
     </bean>
+    <!--Property editor based config-->
+    <bean id="propertyEditorUsageExample" class="editors.PropertyEditorSampleClass">
+        <property name="charArray" value="sample char arr"/>
+        <property name="charValue" value="Y"/>
+        <property name="doubleValue" value="0.07"/>
+        <property name="intValue" value="7"/>
+        <property name="properties">
+            <value>
+                x = Sample x value
+                y = Sample y value
+            </value>
+        </property>
+        <property name="string" value="Sample String value"/>
+        <property name="sample" value="test"/>
+    </bean>
+    <!--Containers bean config-->
+    <bean id="beanWithContainers" class="containers.ClassWithContainers">
+        <constructor-arg name="intType">
+            <set>
+                <value>1</value>
+                <value>2</value>
+            </set>
+        </constructor-arg>
+        <constructor-arg name="listType">
+            <list>
+                <value>1</value>
+                <value>2</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="mapType">
+            <map>
+                <entry key="1" value="2"/>
+            </map>
+        </constructor-arg>
+        <constructor-arg name="properties">
+            <props>
+                <prop key="Foo">Bar</prop>
+            </props>
+        </constructor-arg>
+    </bean>
+    <!--Class with nested collection-->
+    <bean id="classWithNestedCollection" class="nested.ClassWithNestedCollection">
+        <constructor-arg name="list">
+            <list>
+                <set>
+                    <value>foo</value>
+                </set>
+            </list>
+        </constructor-arg>
+    </bean>
+    <!--Class with collection of components-->
+    <bean id="sampleComponent" class="ref.SampleBean">
+        <constructor-arg value="foo"/>
+    </bean>
+
+
+    <bean id="collectionWithComponents" class="ref.CollectionWithComponents">
+        <constructor-arg>
+            <list>
+                <ref bean="sampleComponent"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
 
 </beans>
