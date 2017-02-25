@@ -7,6 +7,7 @@ import constructor.Car;
 import containers.ClassWithContainers;
 import editors.PropertyEditorSampleClass;
 import factory.Controller;
+import idref.IdRefUsage;
 import inheritance.nonconcrete.BiggerBankController;
 import msg.MessagingClass;
 import nested.ClassWithNestedCollection;
@@ -22,7 +23,12 @@ import service.SampleService;
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
-
+    @Test
+    public void testComponentUsingIdRef(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        IdRefUsage idRefUsage = (IdRefUsage) context.getBean("idRefUsage");
+        Assert.assertEquals("foo", idRefUsage.getMap().get("sampleBean").getValue());
+    }
     @Test
     public void testComponentFromList(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");

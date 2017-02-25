@@ -221,6 +221,23 @@
             </list>
         </constructor-arg>
     </bean>
+    <!--Example of bean which uses idref element-->
+    <bean name="sampleBean" class="idref.SampleBean">
+        <constructor-arg value="foo"/>
+    </bean>
+    <bean id="idRefUsage" class="idref.IdRefUsage">
+        <constructor-arg>
+            <map>
+                <entry value-ref="sampleBean">
+                    <key>
+                        <idref bean="sampleBean"/>
+                    </key>
+                </entry>
+
+            </map>
+        </constructor-arg>
+    </bean>
+
 
 
 </beans>
