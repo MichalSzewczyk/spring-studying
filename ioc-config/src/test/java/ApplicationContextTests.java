@@ -6,6 +6,7 @@ import array.SampleComponentWithArray;
 import combining.BankingService;
 import constructor.Car;
 import containers.ClassWithContainers;
+import conversion.SetToListConverting;
 import editors.PropertyEditorSampleClass;
 import factory.Controller;
 import idref.IdRefUsage;
@@ -25,6 +26,12 @@ import service.SampleService;
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
+    @Test
+    public void testCustomCollectionEditor(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        SetToListConverting componentWithArray = (SetToListConverting) context.getBean("setToListConverting");
+        Assert.assertEquals("foo", componentWithArray.getList().get(0));
+    }
     @Test
     public void testComponentWithArray(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");

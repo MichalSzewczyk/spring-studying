@@ -258,5 +258,17 @@
             </array>
         </constructor-arg>
     </bean>
-
+    <!--Collections converting example using CustomCollectionEditor-->
+    <bean id="setToListConverting" class="conversion.SetToListConverting">
+        <property name="list">
+            <set>
+                <value>foo</value>
+            </set>
+        </property>
+        <property name="set">
+            <list>
+                <value>foo</value>
+            </list>
+        </property>
+    </bean>
 </beans>
