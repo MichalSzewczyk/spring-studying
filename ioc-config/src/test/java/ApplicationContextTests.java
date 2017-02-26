@@ -33,6 +33,18 @@ import java.time.*;
  */
 public class ApplicationContextTests {
     @Test
+    public void testSampleComponentWithIndexes(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        namespace.c.SampleComponent sampleComponent = (namespace.c.SampleComponent) context.getBean("sampleComponentWithIndexes");
+        Assert.assertEquals(0, sampleComponent.getIntValue());
+    }
+    @Test
+    public void testSampleComponentWithNames(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        namespace.c.SampleComponent sampleComponent = (namespace.c.SampleComponent) context.getBean("sampleComponentWithNames");
+        Assert.assertEquals(0, sampleComponent.getIntValue());
+    }
+    @Test
     public void testSampleFooComponent(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         SampleComponent sampleComponent = (SampleComponent) context.getBean("sampleFooComponent");
