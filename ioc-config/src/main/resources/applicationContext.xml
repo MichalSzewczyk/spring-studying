@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean class="service.SampleService" id="service">
@@ -290,4 +291,7 @@
     <bean class="registering.BeanWithDate" id="beanWithDate">
         <property name="date" value="10-03-1994"/>
     </bean>
+    <!--Shorter configuration using namespace p-->
+    <bean id="sampleFooBean" class="namespace.SampleBean"/>
+    <bean id="sampleFooComponent" class="namespace.p.SampleComponent" p:intValue="0" p:stringValue="foo" p:sampleBean-ref="sampleFooBean"/>
 </beans>

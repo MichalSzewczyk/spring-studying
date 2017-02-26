@@ -14,6 +14,7 @@ import factory.Controller;
 import idref.IdRefUsage;
 import inheritance.nonconcrete.BiggerBankController;
 import msg.MessagingClass;
+import namespace.p.SampleComponent;
 import nested.ClassWithNestedCollection;
 import nulls.SampleCollectionWithNulls;
 import org.junit.Assert;
@@ -26,23 +27,22 @@ import registering.BeanWithDate;
 import service.SampleService;
 
 import java.time.*;
-import java.util.Locale;
 
 /**
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
     @Test
+    public void testSampleFooComponent(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        SampleComponent sampleComponent = (SampleComponent) context.getBean("sampleFooComponent");
+        Assert.assertEquals(0, sampleComponent.getIntValue());
+    }
+    @Test
     public void testCustomDatePropertyEditor(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         BeanWithDate classWithDateProperty = (BeanWithDate) context.getBean("beanWithDate");
-        System.out.println(LocalDate.of(1994,3,10).atStartOfDay().toInstant(ZoneOffset.systemDefault().getRules().getOffset(Instant.now())));
-        System.out.println();
-
-        System.out.println(ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now()));
-        System.out.println((classWithDateProperty.getDate().toInstant()));
-        OffsetDateTime.now(ZoneId.systemDefault()).getOffset();
-//        Assert.assertEquals("bar", componentWithArray.getDate());
+        Assert.assertEquals(LocalDate.of(1994,3,10).atStartOfDay().toInstant(ZoneOffset.systemDefault().getRules().getOffset(Instant.now())), classWithDateProperty.getDate().toInstant());
     }
     @Test
     public void testHashMapToTreeMapConversion(){
