@@ -2,3 +2,5 @@
 ioc-components.controller/target
 *.iml
 *.log
+*/target/
+out/

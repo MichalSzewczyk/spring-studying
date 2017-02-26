@@ -6,6 +6,7 @@ import array.SampleComponentWithArray;
 import combining.BankingService;
 import constructor.Car;
 import containers.ClassWithContainers;
+import conversion.CustomDatePropertyEditorExample;
 import conversion.HashMapToTreeMapConversion;
 import conversion.SetToListConverting;
 import editors.PropertyEditorSampleClass;
@@ -21,12 +22,28 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import other.Dao;
 import ref.CollectionWithComponents;
+import registering.BeanWithDate;
 import service.SampleService;
+
+import java.time.*;
+import java.util.Locale;
 
 /**
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
+    @Test
+    public void testCustomDatePropertyEditor(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        BeanWithDate classWithDateProperty = (BeanWithDate) context.getBean("beanWithDate");
+        System.out.println(LocalDate.of(1994,3,10).atStartOfDay().toInstant(ZoneOffset.systemDefault().getRules().getOffset(Instant.now())));
+        System.out.println();
+
+        System.out.println(ZoneOffset.systemDefault().getRules().getOffset(LocalDateTime.now()));
+        System.out.println((classWithDateProperty.getDate().toInstant()));
+        OffsetDateTime.now(ZoneId.systemDefault()).getOffset();
+//        Assert.assertEquals("bar", componentWithArray.getDate());
+    }
     @Test
     public void testHashMapToTreeMapConversion(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");

@@ -278,4 +278,16 @@
             </map>
         </property>
     </bean>
+    <!--Registration of components in Spring container -->
+    <bean class="registering.PropertyEditorRegistrarImpl" id="propertyEditorRegistrar"/>
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer" id="configurer">
+        <property name="propertyEditorRegistrars">
+            <array>
+                <ref bean="propertyEditorRegistrar"/>
+            </array>
+        </property>
+    </bean>
+    <bean class="registering.BeanWithDate" id="beanWithDate">
+        <property name="date" value="10-03-1994"/>
+    </bean>
 </beans>
