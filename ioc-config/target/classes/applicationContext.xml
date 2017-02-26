@@ -258,5 +258,24 @@
             </array>
         </constructor-arg>
     </bean>
-
+    <!--Collections converting example using CustomCollectionEditor-->
+    <bean id="setToListConverting" class="conversion.SetToListConverting">
+        <property name="list">
+            <set>
+                <value>foo</value>
+            </set>
+        </property>
+        <property name="set">
+            <list>
+                <value>foo</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="hashMapToTreeMapConversion" class="conversion.HashMapToTreeMapConversion">
+        <property name="treeMap">
+            <map>
+                <entry value="bar" key="foo"/>
+            </map>
+        </property>
+    </bean>
 </beans>

@@ -271,4 +271,11 @@
             </list>
         </property>
     </bean>
+    <bean id="hashMapToTreeMapConversion" class="conversion.HashMapToTreeMapConversion">
+        <property name="treeMap">
+            <map>
+                <entry value="bar" key="foo"/>
+            </map>
+        </property>
+    </bean>
 </beans>

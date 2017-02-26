@@ -6,6 +6,7 @@ import array.SampleComponentWithArray;
 import combining.BankingService;
 import constructor.Car;
 import containers.ClassWithContainers;
+import conversion.HashMapToTreeMapConversion;
 import conversion.SetToListConverting;
 import editors.PropertyEditorSampleClass;
 import factory.Controller;
@@ -26,6 +27,12 @@ import service.SampleService;
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
+    @Test
+    public void testHashMapToTreeMapConversion(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        HashMapToTreeMapConversion componentWithArray = (HashMapToTreeMapConversion) context.getBean("hashMapToTreeMapConversion");
+        Assert.assertEquals("bar", componentWithArray.getTreeMap().get("foo"));
+    }
     @Test
     public void testCustomCollectionEditor(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
