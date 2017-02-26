@@ -2,6 +2,7 @@ import args.debug.ServiceInterface;
 import args.different.SampleController;
 import args.matching.MainController;
 import args.name.NameBasedService;
+import array.SampleComponentWithArray;
 import combining.BankingService;
 import constructor.Car;
 import containers.ClassWithContainers;
@@ -24,6 +25,12 @@ import service.SampleService;
  * Created by Michał Szewczyk on 2017-02-14.
  */
 public class ApplicationContextTests {
+    @Test
+    public void testComponentWithArray(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        SampleComponentWithArray componentWithArray = (SampleComponentWithArray) context.getBean("componentWithArray");
+        Assert.assertEquals(0, componentWithArray.getIntArray()[0]);
+    }
     @Test
     public void testCollectionWithNulls(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");

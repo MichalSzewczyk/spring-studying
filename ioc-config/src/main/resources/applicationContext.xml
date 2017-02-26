@@ -248,5 +248,15 @@
             </map>
         </constructor-arg>
     </bean>
+    <!--An example of component with array inside-->
+    <bean id="componentWithArray" class="array.SampleComponentWithArray">
+        <constructor-arg>
+            <array>
+                <value>0</value>
+                <value>1</value>
+                <value>2</value>
+            </array>
+        </constructor-arg>
+    </bean>
 
 </beans>
