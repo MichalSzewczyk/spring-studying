@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+    xmlns:c="http://www.springframework.org/schema/c">
     <bean class="service.SampleService" id="service">
         <property name="dao" ref="derbyDao"/>
     </bean>
@@ -294,4 +295,14 @@
     <!--Shorter configuration using namespace p-->
     <bean id="sampleFooBean" class="namespace.SampleBean"/>
     <bean id="sampleFooComponent" class="namespace.p.SampleComponent" p:intValue="0" p:stringValue="foo" p:sampleBean-ref="sampleFooBean"/>
+    <!--Shorter configuration using namespace p-->
+    <bean id="sampleComponentWithNames" class="namespace.c.SampleComponent"
+          c:intValue="0"
+          c:stringValue="foo"
+          c:sampleBean-ref="sampleFooBean"
+    />
+    <bean id="sampleComponentWithIndexes" class="namespace.c.SampleComponent"
+          c:_0="foo"
+          c:_1="0"
+          c:_2-ref="sampleFooBean"/>
 </beans>

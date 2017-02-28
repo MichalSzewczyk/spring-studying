@@ -6,7 +6,6 @@ import array.SampleComponentWithArray;
 import combining.BankingService;
 import constructor.Car;
 import containers.ClassWithContainers;
-import conversion.CustomDatePropertyEditorExample;
 import conversion.HashMapToTreeMapConversion;
 import conversion.SetToListConverting;
 import editors.PropertyEditorSampleClass;
@@ -31,6 +30,7 @@ import java.time.*;
 /**
  * Created by Michał Szewczyk on 2017-02-14.
  */
+
 public class ApplicationContextTests {
     @Test
     public void testSampleComponentWithIndexes(){
