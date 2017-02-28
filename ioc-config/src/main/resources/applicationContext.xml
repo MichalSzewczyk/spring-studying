@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns="http://www.springframework.org/schema/beans"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"
     xmlns:c="http://www.springframework.org/schema/c">
+
     <bean class="service.SampleService" id="service">
         <property name="dao" ref="derbyDao"/>
     </bean>
@@ -305,4 +310,23 @@
           c:_0="foo"
           c:_1="0"
           c:_2-ref="sampleFooBean"/>
+    <!--Aop configuration in xml-->
+    <bean id="mainClass" class="aop.MainClass">
+        <constructor-arg value="#{T(System).out}"/>
+    </bean>
+
+    <bean id="aspectClass" class="aop.AspectClass">
+        <constructor-arg value="#{T(System).out}"/>
+    </bean>
+
+    <aop:config>
+        <aop:aspect ref="aspectClass">
+            <aop:pointcut id="pointcut" expression="execution(* *.method(..))"/>
+            <aop:before method="methodBefore" pointcut-ref="pointcut"/>
+            <aop:after method="methodAfter" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+
+
 </beans>

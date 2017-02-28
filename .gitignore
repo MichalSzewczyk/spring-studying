@@ -4,3 +4,7 @@ ioc-components.controller/target
 *.log
 */target/
 out/
+database/src/test/
+security/src/test/
+transactions/carDb/tmp/
+/carDb/

@@ -1,3 +1,5 @@
+import aop.AspectClass;
+import aop.MainClass;
 import args.debug.ServiceInterface;
 import args.different.SampleController;
 import args.matching.MainController;
@@ -18,6 +20,8 @@ import nested.ClassWithNestedCollection;
 import nulls.SampleCollectionWithNulls;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.internal.verification.Times;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import other.Dao;
@@ -25,13 +29,32 @@ import ref.CollectionWithComponents;
 import registering.BeanWithDate;
 import service.SampleService;
 
+import java.io.PrintStream;
 import java.time.*;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 /**
  * Created by Michał Szewczyk on 2017-02-14.
  */
 
 public class ApplicationContextTests {
+    @Test
+    public void testAopConfiguration(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        MainClass mainClassWithAspectConfigured = (MainClass) context.getBean("mainClass");
+        AspectClass aspectClass = (AspectClass) context.getBean("aspectClass");
+        PrintStream mockedPrintStream = Mockito.mock(PrintStream.class);
+        aspectClass.setStream(mockedPrintStream);
+        mainClassWithAspectConfigured.setStream(mockedPrintStream);
+        mainClassWithAspectConfigured.method();
+        verify(mockedPrintStream, times(1)).println("method before");
+        verify(mockedPrintStream, times(1)).println("main method");
+        verify(mockedPrintStream, times(1)).println("method after");
+        mainClassWithAspectConfigured.method();
+    }
+
     @Test
     public void testSampleComponentWithIndexes(){
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
